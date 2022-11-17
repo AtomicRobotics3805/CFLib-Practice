@@ -56,9 +56,6 @@ class MecanumDriveWheelLocalizer(
     private var lastExtHeading = Double.NaN
     private var extHeadingOffset = 0.0
 
-    /**
-     * Initializes the encoders & sets their direction
-     */
     override fun initialize() {
 
     }

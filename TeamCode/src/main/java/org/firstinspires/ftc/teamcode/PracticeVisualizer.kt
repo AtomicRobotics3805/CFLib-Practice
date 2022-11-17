@@ -14,13 +14,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.atomicrobotics.cflib.example.visualization
+package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.atomicrobotics.cflib.Constants
+import com.atomicrobotics.cflib.Constants.drive
 import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
+import com.atomicrobotics.cflib.driving.localizers.MecanumDriveWheelLocalizer
 import com.atomicrobotics.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import com.atomicrobotics.cflib.example.drive.ExampleMecanumDriveConstants
 import com.atomicrobotics.cflib.example.localizers.ExampleOdometryConstants
+import com.atomicrobotics.cflib.example.routines.ExampleRoutines
 import com.atomicrobotics.cflib.example.trajectoryfactory.ExampleTrajectoryFactory
 import com.atomicrobotics.cflib.sequential
 import com.atomicrobotics.cflib.visualization.MeepMeepRobot
@@ -29,16 +33,13 @@ import com.atomicrobotics.cflib.visualization.MeepMeepVisualizer
 fun main() {
     MeepMeepVisualizer.addRobot(MeepMeepRobot(
         MecanumDrive(
-            ExampleMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(ExampleOdometryConstants())
-        ) { ExampleTrajectoryFactory.hubFrontStartPose },
+            PracticeMecanumDriveConstants,
+            MecanumDriveWheelLocalizer(drive as MecanumDrive)
+        ) { PracticeTrajectoryFactory.startPose },
         18.0,
         18.0,
-        { sequential {
-            +Constants.drive.followTrajectory(ExampleTrajectoryFactory.startToHubFront)
-            +Constants.drive.followTrajectory(ExampleTrajectoryFactory.hubFrontToPark)
-        } },
+        { PracticeRoutines.myRoutine },
         Constants.Color.BLUE
     ))
-    MeepMeepVisualizer.run(ExampleTrajectoryFactory)
+    MeepMeepVisualizer.run(PracticeTrajectoryFactory)
 }

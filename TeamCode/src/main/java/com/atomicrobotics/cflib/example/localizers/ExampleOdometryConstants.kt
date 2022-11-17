@@ -32,6 +32,22 @@ class ExampleOdometryConstants : TwoWheelOdometryConstants {
     var _PARALLEL_NAME = "LF" // the name of the wheel that the parallel deadwheel encoder is plugged into
     @JvmField
     var _PERPENDICULAR_NAME = "LB" // the name of the wheel that the perpendicular deadwheel encoder is plugged into
+    @JvmField
+    var _TICKS_PER_REV = 8192.0 // REV through bore encoder
+    @JvmField
+    var _WHEEL_RADIUS = 0.688975 // rotacaster wheels // in
+    @JvmField
+    var _GEAR_RATIO = 1.0 // output (wheel) speed / input (encoder) speed
+    @JvmField
+    var _PARALLEL_REVERSED = false
+    @JvmField
+    var _PERPENDICULAR_REVERSED = false
+    @JvmField
+    var _X_MULTIPLIER = 1.0
+    @JvmField
+    var _Y_MULTIPLIER = 1.0
+    @JvmField
+    var _CORRECTED_VELOCITY = true
 
     override val PARALLEL_X: Double
         get() = _PARALLEL_X
@@ -45,4 +61,20 @@ class ExampleOdometryConstants : TwoWheelOdometryConstants {
         get() = _PARALLEL_NAME
     override val PERPENDICULAR_NAME: String
         get() = _PERPENDICULAR_NAME
+    override val TICKS_PER_REV: Double
+        get() = _TICKS_PER_REV
+    override val WHEEL_RADIUS: Double
+        get() = _WHEEL_RADIUS
+    override val GEAR_RATIO: Double
+        get() = _GEAR_RATIO
+    override val PARALLEL_REVERSED: Boolean
+        get() = _PARALLEL_REVERSED
+    override val PERPENDICULAR_REVERSED: Boolean
+        get() = _PERPENDICULAR_REVERSED
+    override val X_MULTIPLIER: Double
+        get() = _X_MULTIPLIER
+    override val Y_MULTIPLIER: Double
+        get() = _Y_MULTIPLIER
+    override val CORRECTED_VELOCITY: Boolean
+        get() = _CORRECTED_VELOCITY
 }

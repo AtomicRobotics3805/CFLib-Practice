@@ -14,31 +14,37 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.atomicrobotics.cflib.example.visualization
+package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.roadrunner.geometry.Pose2d
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.atomicrobotics.cflib.Constants
 import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
+import com.atomicrobotics.cflib.driving.localizers.MecanumDriveWheelLocalizer
 import com.atomicrobotics.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import com.atomicrobotics.cflib.example.drive.ExampleMecanumDriveConstants
 import com.atomicrobotics.cflib.example.localizers.ExampleOdometryConstants
+import com.atomicrobotics.cflib.example.mechanisms.Claw
+import com.atomicrobotics.cflib.example.mechanisms.Lift
+import com.atomicrobotics.cflib.example.routines.ExampleRoutines
 import com.atomicrobotics.cflib.example.trajectoryfactory.ExampleTrajectoryFactory
+import com.atomicrobotics.cflib.opmodes.AutonomousOpMode
 import com.atomicrobotics.cflib.sequential
-import com.atomicrobotics.cflib.visualization.MeepMeepRobot
-import com.atomicrobotics.cflib.visualization.MeepMeepVisualizer
 
-fun main() {
-    MeepMeepVisualizer.addRobot(MeepMeepRobot(
-        MecanumDrive(
-            ExampleMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(ExampleOdometryConstants())
-        ) { ExampleTrajectoryFactory.hubFrontStartPose },
-        18.0,
-        18.0,
-        { sequential {
-            +Constants.drive.followTrajectory(ExampleTrajectoryFactory.startToHubFront)
-            +Constants.drive.followTrajectory(ExampleTrajectoryFactory.hubFrontToPark)
-        } },
-        Constants.Color.BLUE
-    ))
-    MeepMeepVisualizer.run(ExampleTrajectoryFactory)
-}
+/**
+ * This class is an example of how you can create an Autonomous OpMode. Everything is handled by
+ * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
+ */
+@Disabled
+@Autonomous(name = "Adam's Path Following")
+class PracticeAutonomousOpMode : AutonomousOpMode(
+    Constants.Color.BLUE,
+    PracticeTrajectoryFactory,
+    { sequential { } },
+    null,
+    MecanumDrive(
+        PracticeMecanumDriveConstants,
+        MecanumDriveWheelLocalizer(Constants.drive as MecanumDrive)
+    ) { Pose2d() }
+)

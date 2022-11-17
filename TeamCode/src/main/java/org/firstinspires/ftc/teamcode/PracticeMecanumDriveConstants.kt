@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.atomicrobotics.cflib.example.drive
+package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.control.PIDCoefficients
 import com.atomicrobotics.cflib.driving.DriverControlled
@@ -33,7 +33,7 @@ import com.atomicrobotics.cflib.trajectories.toRadians
  * during the 2021-22 Freight Frenzy season.
  */
 @Suppress("ObjectPropertyName")
-object ExampleMecanumDriveConstants : MecanumDriveConstants {
+object PracticeMecanumDriveConstants : MecanumDriveConstants {
 
     // These are motor constants that should be listed online for your motors.
     @JvmField
@@ -87,13 +87,13 @@ object ExampleMecanumDriveConstants : MecanumDriveConstants {
      * angular values are in radians.
      */
     @JvmField
-    var _MAX_VEL = 52.0
+    var _MAX_VEL = 30.0
     @JvmField
-    var _MAX_ACCEL = 45.0
+    var _MAX_ACCEL = 30.0
     @JvmField
-    var _MAX_ANG_VEL = 90.0.toRadians
+    var _MAX_ANG_VEL = 30.0.toRadians
     @JvmField
-    var _MAX_ANG_ACCEL = 90.0.toRadians
+    var _MAX_ANG_ACCEL = 30.0.toRadians
 
     /*
      * These values are used solely with Mecanum Drives to adjust the kinematics functions that
@@ -122,7 +122,7 @@ object ExampleMecanumDriveConstants : MecanumDriveConstants {
 
     // used during TeleOp to make precise movements
     @JvmField
-    var _DRIVER_SPEEDS = listOf(0.1, 0.4, 1.0)
+    var _DRIVER_SPEEDS = listOf(1.0, 0.4)
 
     // these are the directions (forward or reverse) for each motor
     @JvmField

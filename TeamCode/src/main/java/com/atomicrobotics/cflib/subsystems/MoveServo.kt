@@ -38,7 +38,7 @@ import kotlin.math.abs
  * @param interruptible whether this command can be interrupted or not
  */
 @Suppress("unused")
-class MoveServo(private val servo: Servo,
+class   MoveServo(private val servo: Servo,
                 private val position: Double,
                 private val maxTime: Double,
                 override val requirements: List<Subsystem> = arrayListOf(),
