@@ -34,19 +34,5 @@ import com.atomicrobotics.cflib.subsystems.Subsystem
 @Suppress("PropertyName", "MemberVisibilityCanBePrivate", "unused")
 object PracticeClaw : Subsystem {
 
-    var NAME = "claw"
-    var OPEN_POSITION = 0.0
-    var CLOSE_POSITION = 1.0
-    var TIME = 1.0
 
-    val open: Command
-        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
-    val close: Command
-        get() = MoveServo(clawServo, CLOSE_POSITION, TIME)
-
-    lateinit var clawServo: Servo
-
-    override fun initialize() {
-        clawServo = Constants.opMode.hardwareMap.get(Servo::class.java, NAME)
-    }
 }

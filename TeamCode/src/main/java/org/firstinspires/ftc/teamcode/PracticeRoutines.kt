@@ -31,10 +31,5 @@ import com.atomicrobotics.cflib.sequential
  */
 object PracticeRoutines {
 
-    val myRoutine: CommandGroup
-        get() = sequential {
-            +drive.followTrajectory(PracticeTrajectoryFactory.firstTrajectory)
-            +drive.followTrajectory(PracticeTrajectoryFactory.secondTrajectory)
-        }
 
 }

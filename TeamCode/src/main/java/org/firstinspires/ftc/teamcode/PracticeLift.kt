@@ -39,36 +39,5 @@ import kotlin.math.PI
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object PracticeLift : Subsystem {
 
-    var NAME = "lift"
-    var SPEED = 1.0
-    var DIRECTION = DcMotorSimple.Direction.FORWARD
-    var HIGH_POSITION = 10.0
-    var LOW_POSITION = 5.0
 
-    private const val PULLEY_WIDTH = 1.0
-    private const val COUNTS_PER_REV = 28 * 19.2
-    private const val DRIVE_GEAR_REDUCTION = 1.0
-    private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLEY_WIDTH * PI)
-
-    val start: Command
-        get() = PowerMotor(liftMotor, SPEED)
-    val reverse: Command
-        get() = PowerMotor(liftMotor, -SPEED)
-    val stop: Command
-        get() = PowerMotor(liftMotor, 0.0)
-    val toBottom: Command
-        get() = MotorToPosition(liftMotor, 0, SPEED)
-    val toLow: Command
-        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
-    val toHigh: Command
-        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
-
-    lateinit var liftMotor: DcMotorEx
-
-    override fun initialize() {
-        liftMotor = opMode.hardwareMap.get(DcMotorEx::class.java, NAME)
-        liftMotor.direction = DIRECTION
-        liftMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-        liftMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
-    }
 }
