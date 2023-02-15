@@ -34,7 +34,7 @@ fun main() {
     MeepMeepVisualizer.addRobot(MeepMeepRobot(
         MecanumDrive(
             PracticeMecanumDriveConstants,
-            MecanumDriveWheelLocalizer(drive as MecanumDrive)
+            MecanumDriveWheelLocalizer({drive as MecanumDrive})
         ) { PracticeTrajectoryFactory.startPose },
         18.0,
         18.0,
