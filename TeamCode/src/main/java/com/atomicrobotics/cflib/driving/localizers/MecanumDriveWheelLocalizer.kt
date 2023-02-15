@@ -38,7 +38,7 @@ import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
  */
 @Config
 class MecanumDriveWheelLocalizer(
-    private val drive: MecanumDrive,
+    private val drive_: () -> MecanumDrive,
     private val useExternalHeading: Boolean = true
 ) : SubsystemLocalizer {
     private var _poseEstimate = Pose2d()
@@ -52,12 +52,13 @@ class MecanumDriveWheelLocalizer(
         }
     override var poseVelocity: Pose2d? = null
         private set
+    private lateinit var drive: MecanumDrive
     private var lastWheelPositions = emptyList<Double>()
     private var lastExtHeading = Double.NaN
     private var extHeadingOffset = 0.0
 
     override fun initialize() {
-
+        drive = drive_.invoke()
     }
 
     override fun update() {
@@ -72,7 +73,7 @@ class MecanumDriveWheelLocalizer(
                 wheelDeltas,
                 drive.constants.TRACK_WIDTH,
                 drive.constants.TRACK_WIDTH,
-                drive.constants.LATERAL_MULTIPLIER
+                (drive.constants as MecanumDriveConstants).LATERAL_MULTIPLIER
             )
             val finalHeadingDelta = if (useExternalHeading) {
                 Angle.normDelta(extHeading - lastExtHeading)
@@ -89,7 +90,7 @@ class MecanumDriveWheelLocalizer(
             drive.getWheelVelocities(),
             drive.constants.TRACK_WIDTH,
             drive.constants.TRACK_WIDTH,
-            drive.constants.LATERAL_MULTIPLIER
+            (drive.constants as MecanumDriveConstants).LATERAL_MULTIPLIER
         )
         if (useExternalHeading) {
             poseVelocity = Pose2d(poseVelocity!!.vec(), drive.externalHeadingVelocity)

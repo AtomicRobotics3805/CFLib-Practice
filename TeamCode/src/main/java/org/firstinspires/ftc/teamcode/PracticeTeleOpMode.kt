@@ -36,6 +36,6 @@ class PracticeTeleOpMode : TeleOpMode(
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
-        MecanumDriveWheelLocalizer(Constants.drive as MecanumDrive)
+        MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
     )
 )
