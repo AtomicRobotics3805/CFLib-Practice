@@ -152,11 +152,11 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     var _POV = DriverControlled.POV.ROBOT_CENTRIC
 
     @JvmField
-    var _REVERSE_STRAFE = true
+    var _REVERSE_STRAFE = false
     @JvmField
     var _REVERSE_STRAIGHT = false
     @JvmField
-    var _REVERSE_TURN = true
+    var _REVERSE_TURN = false
 
 
     override val TICKS_PER_REV: Double
