@@ -17,12 +17,12 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.control.PIDCoefficients
-import com.atomicrobotics.cflib.driving.DriverControlled
+import org.atomicrobotics3805.cflib.driving.DriverControlled
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.PIDFCoefficients
-import com.atomicrobotics.cflib.driving.MecanumDriveConstants
-import com.atomicrobotics.cflib.roadrunner.AxisDirection
-import com.atomicrobotics.cflib.trajectories.toRadians
+import org.atomicrobotics3805.cflib.driving.MecanumDriveConstants
+import org.atomicrobotics3805.cflib.roadrunner.AxisDirection
+import org.atomicrobotics3805.cflib.trajectories.toRadians
 
 /**
  * Contains all the necessary constants for any type of drivetrain as well as the constants
@@ -109,6 +109,10 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     var _DRIFT_MULTIPLIER = 1.0
     @JvmField
     var _DRIFT_TURN_MULTIPLIER = 1.0
+    @JvmField
+    var _BACKWARD_DRIFT_MULTIPLIER = 1.0
+    @JvmField
+    var _RIGHT_DRIFT_MODIFIER = 1.0
 
     /*
      * These coefficients are used to adjust your location and heading when they don't match up with
@@ -189,6 +193,8 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
         get() = _MAX_ANG_ACCEL
     override val LATERAL_MULTIPLIER: Double
         get() = _LATERAL_MULTIPLIER
+    override val BACKWARD_DRIFT_MULTIPLIER: Double
+        get() = _BACKWARD_DRIFT_MULTIPLIER
     override val DRIFT_MULTIPLIER: Double
         get() = _DRIFT_MULTIPLIER
     override val DRIFT_TURN_MULTIPLIER: Double
@@ -209,6 +215,8 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
         get() = _RIGHT_FRONT_NAME
     override val RIGHT_BACK_NAME: String
         get() = _RIGHT_BACK_NAME
+    override val RIGHT_DRIFT_MULTIPLIER: Double
+        get() = _RIGHT_DRIFT_MODIFIER
     override val POV: DriverControlled.POV
         get() = _POV
     override val REVERSE_STRAFE: Boolean

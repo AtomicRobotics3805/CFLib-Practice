@@ -18,9 +18,10 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.acmerobotics.roadrunner.geometry.Vector2d
-import com.atomicrobotics.cflib.trajectories.*
-import com.atomicrobotics.cflib.Constants
-import com.atomicrobotics.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.trajectories.*
+import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
 
 /**
  * This class contains all of the RoadRunner trajectories and start positions in the project. It's

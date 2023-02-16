@@ -18,10 +18,10 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.Servo
-import com.atomicrobotics.cflib.Command
-import com.atomicrobotics.cflib.Constants
-import com.atomicrobotics.cflib.subsystems.MoveServo
-import com.atomicrobotics.cflib.subsystems.Subsystem
+import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.subsystems.MoveServo
+import org.atomicrobotics3805.cflib.subsystems.Subsystem
 
 /**
  * This class is an example of a claw controlled by a single servo. Its first two commands, open and close, which each

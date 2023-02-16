@@ -16,10 +16,10 @@
 */
 package org.firstinspires.ftc.teamcode
 
-import com.atomicrobotics.cflib.CommandScheduler
-import com.atomicrobotics.cflib.Constants.drive
-import com.atomicrobotics.cflib.Constants.opMode
-import com.atomicrobotics.cflib.controls.Controls
+import org.atomicrobotics3805.cflib.CommandScheduler
+import org.atomicrobotics3805.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.Constants.opMode
+import org.atomicrobotics3805.cflib.controls.Controls
 
 /**
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a

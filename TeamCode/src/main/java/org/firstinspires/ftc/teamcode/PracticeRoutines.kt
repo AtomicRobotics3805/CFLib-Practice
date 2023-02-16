@@ -16,14 +16,11 @@
 */
 package org.firstinspires.ftc.teamcode
 
-import com.atomicrobotics.cflib.Command
-import com.atomicrobotics.cflib.CommandGroup
-import com.atomicrobotics.cflib.Constants.drive
-import com.atomicrobotics.cflib.example.mechanisms.Claw
-import com.atomicrobotics.cflib.example.mechanisms.Lift
-import com.atomicrobotics.cflib.example.trajectoryfactory.ExampleTrajectoryFactory
-import com.atomicrobotics.cflib.parallel
-import com.atomicrobotics.cflib.sequential
+import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.CommandGroup
+import org.atomicrobotics3805.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
 
 /**
  * This class is an example of how to create routines. Routines are essentially just groups of
