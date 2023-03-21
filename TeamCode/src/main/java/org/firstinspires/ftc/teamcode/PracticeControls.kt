@@ -44,5 +44,9 @@ object PracticeControls : Controls() {
         gamepad1.dpadUp.releasedCommand = { PracticeLift.stop }
         gamepad1.dpadDown.pressedCommand = { PracticeLift.reverse }
         gamepad1.dpadDown.releasedCommand = { PracticeLift.stop }
+        gamepad1.b.pressedCommand = { PracticeLift.toBottom }
+        gamepad1.leftBumper.pressedCommand = { PracticeLift.toLow }
+        gamepad1.rightBumper.pressedCommand = { PracticeLift.toHigh }
+
     }
 }

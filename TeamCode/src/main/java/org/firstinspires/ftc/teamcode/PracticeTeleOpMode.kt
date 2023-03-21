@@ -37,5 +37,7 @@ class PracticeTeleOpMode : TeleOpMode(
     MecanumDrive(
         PracticeMecanumDriveConstants,
         MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
-    )
+    ),
+    PracticeLift,
+    PracticeClaw
 )

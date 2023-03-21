@@ -22,6 +22,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.atomicrobotics.cflib.Constants.opMode
 import com.atomicrobotics.cflib.Command
+import com.atomicrobotics.cflib.parallel
 import com.atomicrobotics.cflib.subsystems.PowerMotor
 import com.atomicrobotics.cflib.subsystems.Subsystem
 import com.atomicrobotics.cflib.subsystems.MotorToPosition
@@ -39,36 +40,61 @@ import kotlin.math.PI
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object PracticeLift : Subsystem {
 
-    var NAME = "lift"
+    var NAME_1 = "lift1"
+    var NAME_2 = "lift2"
     var SPEED = 1.0
-    var DIRECTION = DcMotorSimple.Direction.FORWARD
-    var HIGH_POSITION = 10.0
-    var LOW_POSITION = 5.0
+    var DIRECTION_1 = DcMotorSimple.Direction.FORWARD
+    var DIRECTION_2 = DcMotorSimple.Direction.FORWARD
+    var HIGH_POSITION = 30.0
+    var LOW_POSITION = 15.0
 
-    private const val PULLEY_WIDTH = 1.0
-    private const val COUNTS_PER_REV = 28 * 19.2
+    private const val PULLEY_WIDTH = 0.7
+    private const val COUNTS_PER_REV = 28 * 3.7
     private const val DRIVE_GEAR_REDUCTION = 1.0
     private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLEY_WIDTH * PI)
 
     val start: Command
-        get() = PowerMotor(liftMotor, SPEED)
+        get() = parallel {
+            +PowerMotor(liftMotor1, SPEED)
+            +PowerMotor(liftMotor2, SPEED)
+        }
     val reverse: Command
-        get() = PowerMotor(liftMotor, -SPEED)
+        get() = parallel {
+            +PowerMotor(liftMotor1, -SPEED)
+            +PowerMotor(liftMotor2, -SPEED)
+        }
     val stop: Command
-        get() = PowerMotor(liftMotor, 0.0)
+        get() =  parallel {
+            +PowerMotor(liftMotor1, 0.0)
+            +PowerMotor(liftMotor2, 0.0)
+        }
     val toBottom: Command
-        get() = MotorToPosition(liftMotor, 0, SPEED)
+        get() = parallel {
+            +MotorToPosition(liftMotor1, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
+            +MotorToPosition(liftMotor2, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
+        }
     val toLow: Command
-        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+        get() = parallel {
+            +MotorToPosition(liftMotor1, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+            +MotorToPosition(liftMotor2, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+        }
     val toHigh: Command
-        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+        get() = parallel {
+            +MotorToPosition(liftMotor1, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+            +MotorToPosition(liftMotor2, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+        }
 
-    lateinit var liftMotor: DcMotorEx
+    lateinit var liftMotor1: DcMotorEx
+    lateinit var liftMotor2: DcMotorEx
 
     override fun initialize() {
-        liftMotor = opMode.hardwareMap.get(DcMotorEx::class.java, NAME)
-        liftMotor.direction = DIRECTION
-        liftMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-        liftMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+        liftMotor1 = opMode.hardwareMap.get(DcMotorEx::class.java, NAME_1)
+        liftMotor2 = opMode.hardwareMap.get(DcMotorEx::class.java, NAME_2)
+        liftMotor1.direction = DIRECTION_1
+        liftMotor2.direction = DIRECTION_2
+        liftMotor1.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        liftMotor1.mode = DcMotor.RunMode.RUN_USING_ENCODER
+        liftMotor2.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        liftMotor2.mode = DcMotor.RunMode.RUN_USING_ENCODER
     }
 }

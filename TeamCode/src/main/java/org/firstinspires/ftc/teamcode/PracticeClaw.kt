@@ -35,8 +35,8 @@ import com.atomicrobotics.cflib.subsystems.Subsystem
 object PracticeClaw : Subsystem {
 
     var NAME = "claw"
-    var OPEN_POSITION = 0.0
-    var CLOSE_POSITION = 1.0
+    var OPEN_POSITION = 0.8
+    var CLOSE_POSITION = 0.42
     var TIME = 1.0
 
     val open: Command
