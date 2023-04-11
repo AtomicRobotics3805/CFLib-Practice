@@ -21,7 +21,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
-import org.atomicrobotics3805.cflib.driving.localizers.MecanumDriveWheelLocalizer
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.opmodes.AutonomousOpMode
 import org.atomicrobotics3805.cflib.sequential
@@ -39,6 +38,6 @@ class PracticeAutonomousOpMode : AutonomousOpMode(
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
-        MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
+        TwoWheelOdometryLocalizer(CompetitionOdometryConstants)
     ) { Pose2d() }
 )

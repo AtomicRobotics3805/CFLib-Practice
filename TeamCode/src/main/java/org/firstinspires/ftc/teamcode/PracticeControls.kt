@@ -19,6 +19,7 @@ package org.firstinspires.ftc.teamcode
 import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.Constants.opMode
+import org.atomicrobotics3805.cflib.GamepadEx
 import org.atomicrobotics3805.cflib.controls.Controls
 
 /**
@@ -36,6 +37,6 @@ object PracticeControls : Controls() {
      * Registers commands on the gamepads.
      */
     override fun registerCommands() {
-
+        CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
     }
 }

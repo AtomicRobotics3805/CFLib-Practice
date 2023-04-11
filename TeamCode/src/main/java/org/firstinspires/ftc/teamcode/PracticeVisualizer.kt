@@ -18,9 +18,8 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import org.atomicrobotics3805.cflib.Constants
-import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
-import org.atomicrobotics3805.cflib.driving.localizers.MecanumDriveWheelLocalizer
+import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.visualization.MeepMeepRobot
 import org.atomicrobotics3805.cflib.visualization.MeepMeepVisualizer
@@ -29,7 +28,7 @@ fun main() {
     MeepMeepVisualizer.addRobot(MeepMeepRobot(
         MecanumDrive(
             PracticeMecanumDriveConstants,
-            MecanumDriveWheelLocalizer({drive as MecanumDrive})
+            TwoWheelOdometryLocalizer(CompetitionOdometryConstants)
         ) { Pose2d() },
         18.0,
         18.0,

@@ -19,8 +19,9 @@ package org.firstinspires.ftc.teamcode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
-import org.atomicrobotics3805.cflib.driving.localizers.MecanumDriveWheelLocalizer
+import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.opmodes.TeleOpMode
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
  * This class is an example of how you can create an TeleOp OpMode. Everything is handled by the
@@ -30,11 +31,10 @@ import org.atomicrobotics3805.cflib.opmodes.TeleOpMode
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    null,
-    null,
-    null,
-    MecanumDrive(
+    mainRoutine = { TelemetryCommand(100.0, "Woohoo!")},
+    drive = MecanumDrive(
         PracticeMecanumDriveConstants,
-        MecanumDriveWheelLocalizer({ Constants.drive as MecanumDrive })
-    )
+        TwoWheelOdometryLocalizer(CompetitionOdometryConstants)
+    ),
+    subsystems = arrayOf(PracticeLift)
 )
