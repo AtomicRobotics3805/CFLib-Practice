@@ -34,7 +34,7 @@ class PracticeTeleOpMode : TeleOpMode(
     mainRoutine = { TelemetryCommand(100.0, "Woohoo!")},
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
-        TwoWheelOdometryLocalizer(CompetitionOdometryConstants)
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ),
     subsystems = arrayOf(PracticeLift)
 )

@@ -38,6 +38,6 @@ class PracticeAutonomousOpMode : AutonomousOpMode(
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
-        TwoWheelOdometryLocalizer(CompetitionOdometryConstants)
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ) { Pose2d() }
 )
