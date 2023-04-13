@@ -37,6 +37,6 @@ object PracticeControls : Controls() {
      * Registers commands on the gamepads.
      */
     override fun registerCommands() {
-        CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
+
     }
 }
