@@ -36,15 +36,17 @@ import com.atomicrobotics.cflib.sequential
  * This class is an example of how you can create an Autonomous OpMode. Everything is handled by
  * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
-@Disabled
-@Autonomous(name = "Adam's Path Following")
+//@Disabled
+@Autonomous(name = "Joseph's Path Following")
 class PracticeAutonomousOpMode : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
-    { sequential { } },
+    { PracticeRoutines.combinedRoutine1 },
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
-        MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
-    ) { Pose2d() }
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
+    ) { PracticeTrajectoryFactory.startPose },
+    PracticeLift,
+    PracticeClaw
 )

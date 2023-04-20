@@ -24,12 +24,70 @@ import com.atomicrobotics.cflib.example.mechanisms.Lift
 import com.atomicrobotics.cflib.example.trajectoryfactory.ExampleTrajectoryFactory
 import com.atomicrobotics.cflib.parallel
 import com.atomicrobotics.cflib.sequential
+import com.atomicrobotics.cflib.utilCommands.Delay
 
 /**
  * This class is an example of how to create routines. Routines are essentially just groups of
  * commands that can be run either one at a time (sequentially) or all at once (in parallel).
  */
 object PracticeRoutines {
+    val myDriveRoutine1: CommandGroup
+        get() = sequential {
+            +drive.followTrajectory(PracticeTrajectoryFactory.firstTrajectory)
+        }
+    val myDriveRoutine2: CommandGroup
+        get() = sequential {
+            +drive.followTrajectory(PracticeTrajectoryFactory.secondTrajectory)
+        }
+    val myDriveRoutine3: CommandGroup
+        get() = sequential {
+            +drive.followTrajectory(PracticeTrajectoryFactory.thirdTrajectory)
+        }
+    val myLowLiftRoutine: CommandGroup
+        get() = sequential {
+            +PracticeLift.toLow
+    }
+    val myBottomLiftRoutine: CommandGroup
+        get() = sequential {
+            +PracticeLift.toBottom
+        }
+    val myHighLiftRoutine: CommandGroup
+        get() = sequential {
+            +PracticeLift.toHigh
+        }
+    val openClawRoutine: CommandGroup
+        get() = sequential {
+            +PracticeClaw.open
+            +Delay(5.0)
+        }
+    val closeClawRoutine: CommandGroup
+        get() = sequential {
+            +PracticeClaw.close
+        }
+    val combinedRoutine1: CommandGroup
+        get() = parallel {
+            +openClawRoutine
+            +combinedRoutine2
+        }
+    val combinedRoutine2: CommandGroup
+        get() = sequential {
+            +myDriveRoutine1
+            +myLowLiftRoutine
+            +closeClawRoutine
+            +myHighLiftRoutine
+            +combinedRoutine3
+        }
+    val combinedRoutine3: CommandGroup
+        get() = parallel {
+            +myBottomLiftRoutine
+            +combinedRoutine4
+        }
+    val combinedRoutine4: CommandGroup
+        get() = sequential {
+            +myDriveRoutine2
+            +openClawRoutine
+            +myDriveRoutine3
+        }
 
 
 }

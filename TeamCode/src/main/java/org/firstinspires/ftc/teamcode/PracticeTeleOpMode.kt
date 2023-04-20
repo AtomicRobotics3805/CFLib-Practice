@@ -20,14 +20,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.atomicrobotics.cflib.Constants
 import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
 import com.atomicrobotics.cflib.driving.localizers.MecanumDriveWheelLocalizer
-import com.atomicrobotics.cflib.example.drive.ExampleMecanumDriveConstants
+import com.atomicrobotics.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import com.atomicrobotics.cflib.opmodes.TeleOpMode
 
 /**
  * This class is an example of how you can create an TeleOp OpMode. Everything is handled by the
  * TeleOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
-@TeleOp(name = "Practice TeleOp OpMode")
+@TeleOp(name = "Joseph's TeleOp OpMode")
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
@@ -36,6 +36,8 @@ class PracticeTeleOpMode : TeleOpMode(
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
-        MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
-    )
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
+    ),
+    PracticeClaw,
+    PracticeLift
 )

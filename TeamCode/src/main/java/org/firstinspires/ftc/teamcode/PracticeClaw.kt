@@ -20,6 +20,7 @@ import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.Servo
 import com.atomicrobotics.cflib.Command
 import com.atomicrobotics.cflib.Constants
+import com.atomicrobotics.cflib.Constants.opMode
 import com.atomicrobotics.cflib.subsystems.MoveServo
 import com.atomicrobotics.cflib.subsystems.Subsystem
 
@@ -33,6 +34,17 @@ import com.atomicrobotics.cflib.subsystems.Subsystem
 @Config
 @Suppress("PropertyName", "MemberVisibilityCanBePrivate", "unused")
 object PracticeClaw : Subsystem {
-
+    var NAME = "claw"
+    var OPEN_POSITION = 0.8
+    var CLOSE_POSITION = 0.42
+    var TIME = 1.0
+    lateinit var clawServo: Servo
+    override fun initialize() {
+        clawServo = opMode.hardwareMap.get(Servo::class.java, NAME)
+    }
+    val open: Command
+        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
+    val close: Command
+        get() = MoveServo(clawServo, CLOSE_POSITION, TIME)
 
 }

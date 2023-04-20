@@ -35,10 +35,10 @@ fun main() {
         MecanumDrive(
             PracticeMecanumDriveConstants,
             MecanumDriveWheelLocalizer({drive as MecanumDrive})
-        ) { Pose2d() },
+        ) { PracticeTrajectoryFactory.startPose },
         18.0,
         18.0,
-        { sequential { } },
+        { PracticeRoutines.combinedRoutine1},
         Constants.Color.BLUE
     ))
     MeepMeepVisualizer.run(PracticeTrajectoryFactory)

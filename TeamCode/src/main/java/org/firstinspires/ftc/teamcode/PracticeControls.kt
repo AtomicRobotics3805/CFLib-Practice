@@ -21,6 +21,8 @@ import com.atomicrobotics.cflib.Constants.drive
 import com.atomicrobotics.cflib.Constants.opMode
 import com.atomicrobotics.cflib.controls.Controls
 
+
+//adb connect 192.168.43.1:5555
 /**
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a
  * line into registerCommands with the following format:
@@ -36,6 +38,17 @@ object PracticeControls : Controls() {
      * Registers commands on the gamepads.
      */
     override fun registerCommands() {
-
+        CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
+        gamepad1.a.pressedCommand = { drive.switchSpeed() }
+        gamepad1.x.pressedCommand = { PracticeClaw.open }
+        gamepad1.y.pressedCommand = { PracticeClaw.close }
+        gamepad1.dpadUp.pressedCommand = { PracticeLift.start }
+        gamepad1.dpadUp.releasedCommand = { PracticeLift.stop }
+        gamepad1.dpadDown.pressedCommand = { PracticeLift.reverse }
+        gamepad1.dpadDown.releasedCommand = { PracticeLift.stop }
+        gamepad1.leftTrigger.pressedCommand = { PracticeLift.toBottom }
+        gamepad1.leftBumper.pressedCommand = { PracticeLift.toLow }
+        gamepad1.rightBumper.pressedCommand = { PracticeLift.toHigh }
     }
+
 }
