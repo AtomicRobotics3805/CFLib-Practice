@@ -17,28 +17,27 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
-import com.atomicrobotics.cflib.Constants
-import com.atomicrobotics.cflib.Constants.drive
-import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
-import com.atomicrobotics.cflib.driving.localizers.MecanumDriveWheelLocalizer
-import com.atomicrobotics.cflib.driving.localizers.TwoWheelOdometryLocalizer
-import com.atomicrobotics.cflib.example.drive.ExampleMecanumDriveConstants
-import com.atomicrobotics.cflib.example.localizers.ExampleOdometryConstants
-import com.atomicrobotics.cflib.example.routines.ExampleRoutines
-import com.atomicrobotics.cflib.example.trajectoryfactory.ExampleTrajectoryFactory
-import com.atomicrobotics.cflib.sequential
-import com.atomicrobotics.cflib.visualization.MeepMeepRobot
-import com.atomicrobotics.cflib.visualization.MeepMeepVisualizer
+import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
+import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
+import org.atomicrobotics3805.cflib.sequential
+import org.atomicrobotics3805.cflib.visualization.MeepMeepRobot
+import org.atomicrobotics3805.cflib.visualization.MeepMeepVisualizer
 
 fun main() {
     MeepMeepVisualizer.addRobot(MeepMeepRobot(
         MecanumDrive(
             PracticeMecanumDriveConstants,
+<<<<<<< HEAD
             MecanumDriveWheelLocalizer({drive as MecanumDrive})
         ) { PracticeTrajectoryFactory.startPose },
+=======
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants)
+        ) { Pose2d() },
+>>>>>>> main
         18.0,
         18.0,
-        { PracticeRoutines.myRoutine },
+        { sequential { } },
         Constants.Color.BLUE
     ))
     MeepMeepVisualizer.run(PracticeTrajectoryFactory)

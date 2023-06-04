@@ -20,12 +20,12 @@ import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
-import com.atomicrobotics.cflib.Constants.opMode
-import com.atomicrobotics.cflib.Command
-import com.atomicrobotics.cflib.parallel
-import com.atomicrobotics.cflib.subsystems.PowerMotor
-import com.atomicrobotics.cflib.subsystems.Subsystem
-import com.atomicrobotics.cflib.subsystems.MotorToPosition
+import org.atomicrobotics3805.cflib.Constants.opMode
+import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.subsystems.PowerMotor
+import org.atomicrobotics3805.cflib.subsystems.Subsystem
+import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 import kotlin.math.PI
 
 /**

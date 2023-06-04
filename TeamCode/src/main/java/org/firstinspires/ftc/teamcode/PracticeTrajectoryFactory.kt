@@ -18,9 +18,10 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.acmerobotics.roadrunner.geometry.Vector2d
-import com.atomicrobotics.cflib.trajectories.*
-import com.atomicrobotics.cflib.Constants
-import com.atomicrobotics.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.trajectories.*
+import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.Constants.drive
+import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
 
 /**
  * This class contains all of the RoadRunner trajectories and start positions in the project. It's
@@ -30,10 +31,6 @@ import com.atomicrobotics.cflib.Constants.drive
  */
 object PracticeTrajectoryFactory : TrajectoryFactory() {
 
-    lateinit var startPose: Pose2d
-    lateinit var firstTrajectory: ParallelTrajectory
-    lateinit var secondTrajectory: ParallelTrajectory
-
     /**
      * Initializes the robot's start positions and trajectories. This is where the trajectories are
      * actually created.
@@ -41,13 +38,8 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     override fun initialize() {
         super.initialize()
         // start positions
-        startPose = Pose2d(0.0, 0.0, 0.0)
+
         // trajectories
-        firstTrajectory = drive.trajectoryBuilder(startPose)
-            .lineTo(Vector2d(0.0, 30.0))
-            .build()
-        secondTrajectory = drive.trajectoryBuilder(firstTrajectory.end())
-            .lineTo(Vector2d(0.0, 30.0))
-            .build()
+
     }
 }

@@ -19,18 +19,11 @@ package org.firstinspires.ftc.teamcode
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.Disabled
-import com.atomicrobotics.cflib.Constants
-import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
-import com.atomicrobotics.cflib.driving.localizers.MecanumDriveWheelLocalizer
-import com.atomicrobotics.cflib.driving.localizers.TwoWheelOdometryLocalizer
-import com.atomicrobotics.cflib.example.drive.ExampleMecanumDriveConstants
-import com.atomicrobotics.cflib.example.localizers.ExampleOdometryConstants
-import com.atomicrobotics.cflib.example.mechanisms.Claw
-import com.atomicrobotics.cflib.example.mechanisms.Lift
-import com.atomicrobotics.cflib.example.routines.ExampleRoutines
-import com.atomicrobotics.cflib.example.trajectoryfactory.ExampleTrajectoryFactory
-import com.atomicrobotics.cflib.opmodes.AutonomousOpMode
-import com.atomicrobotics.cflib.sequential
+import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
+import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
+import org.atomicrobotics3805.cflib.opmodes.AutonomousOpMode
+import org.atomicrobotics3805.cflib.sequential
 
 /**
  * This class is an example of how you can create an Autonomous OpMode. Everything is handled by
@@ -45,6 +38,10 @@ class PracticeAutonomousOpMode : AutonomousOpMode(
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
+<<<<<<< HEAD
         MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
+=======
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
+>>>>>>> main
     ) { Pose2d() }
 )

@@ -17,11 +17,11 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import com.atomicrobotics.cflib.Constants
-import com.atomicrobotics.cflib.driving.drivers.MecanumDrive
-import com.atomicrobotics.cflib.driving.localizers.MecanumDriveWheelLocalizer
-import com.atomicrobotics.cflib.example.drive.ExampleMecanumDriveConstants
-import com.atomicrobotics.cflib.opmodes.TeleOpMode
+import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
+import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
+import org.atomicrobotics3805.cflib.opmodes.TeleOpMode
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
  * This class is an example of how you can create an TeleOp OpMode. Everything is handled by the
@@ -31,13 +31,10 @@ import com.atomicrobotics.cflib.opmodes.TeleOpMode
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    null,
-    null,
-    null,
-    MecanumDrive(
+    mainRoutine = { TelemetryCommand(100.0, "Woohoo!")},
+    drive = MecanumDrive(
         PracticeMecanumDriveConstants,
-        MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ),
-    PracticeLift,
-    PracticeClaw
+    subsystems = arrayOf(PracticeLift, PracticeClaw)
 )
