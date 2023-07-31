@@ -30,7 +30,7 @@ import org.atomicrobotics3805.cflib.sequential
  * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
 @Disabled
-@Autonomous(name = "Adam's Path Following")
+@Autonomous(name = "Practice Autonomous OpMode")
 class PracticeAutonomousOpMode : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
