@@ -38,10 +38,6 @@ class PracticeAutonomousOpMode : AutonomousOpMode(
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
-<<<<<<< HEAD
-        MecanumDriveWheelLocalizer({Constants.drive as MecanumDrive})
-=======
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
->>>>>>> main
     ) { Pose2d() }
 )

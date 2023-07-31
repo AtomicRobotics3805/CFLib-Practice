@@ -28,13 +28,8 @@ fun main() {
     MeepMeepVisualizer.addRobot(MeepMeepRobot(
         MecanumDrive(
             PracticeMecanumDriveConstants,
-<<<<<<< HEAD
-            MecanumDriveWheelLocalizer({drive as MecanumDrive})
-        ) { PracticeTrajectoryFactory.startPose },
-=======
             TwoWheelOdometryLocalizer(PracticeOdometryConstants)
         ) { Pose2d() },
->>>>>>> main
         18.0,
         18.0,
         { sequential { } },
