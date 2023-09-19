@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation project(':FtcRobotControgller')
+    implementation project(':FtcRobotController')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
