@@ -21,6 +21,7 @@ import org.atomicrobotics3805.cflib.driving.DriverControlled
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.PIDFCoefficients
 import org.atomicrobotics3805.cflib.driving.MecanumDriveConstants
+import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.roadrunner.AxisDirection
 import org.atomicrobotics3805.cflib.trajectories.toRadians
 
@@ -128,25 +129,19 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _DRIVER_SPEEDS = listOf(1.0, 0.4)
 
-    // these are the directions (forward or reverse) for each motor
+    // these are the motors with the proper directions, motor type, ratio, and direction
     @JvmField
-    var _LEFT_FRONT_DIRECTION = DcMotorSimple.Direction.REVERSE
+    var _LEFT_FRONT_MOTOR = MotorEx("LF", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2,
+        DcMotorSimple.Direction.REVERSE)
     @JvmField
-    var _LEFT_BACK_DIRECTION = DcMotorSimple.Direction.REVERSE
+    var _LEFT_BACK_MOTOR = MotorEx("LB", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2,
+        DcMotorSimple.Direction.REVERSE)
     @JvmField
-    var _RIGHT_FRONT_DIRECTION = DcMotorSimple.Direction.FORWARD
+    var _RIGHT_FRONT_MOTOR = MotorEx("RF", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2,
+        DcMotorSimple.Direction.FORWARD)
     @JvmField
-    var _RIGHT_BACK_DIRECTION = DcMotorSimple.Direction.FORWARD
-
-    // these are the names for the motors in the configuration files on the robot
-    @JvmField
-    var _LEFT_FRONT_NAME = "LF"
-    @JvmField
-    var _LEFT_BACK_NAME = "LB"
-    @JvmField
-    var _RIGHT_FRONT_NAME = "RF"
-    @JvmField
-    var _RIGHT_BACK_NAME = "RB"
+    var _RIGHT_BACK_MOTOR = MotorEx("RB", MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2,
+        DcMotorSimple.Direction.FORWARD)
 
     // the vertical  direction the hub is mounted
     @JvmField
@@ -199,22 +194,14 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
         get() = _DRIFT_MULTIPLIER
     override val DRIFT_TURN_MULTIPLIER: Double
         get() = _DRIFT_TURN_MULTIPLIER
-    override val LEFT_FRONT_DIRECTION: DcMotorSimple.Direction
-        get() = _LEFT_FRONT_DIRECTION
-    override val LEFT_BACK_DIRECTION: DcMotorSimple.Direction
-        get() = _LEFT_BACK_DIRECTION
-    override val RIGHT_FRONT_DIRECTION: DcMotorSimple.Direction
-        get() = _RIGHT_FRONT_DIRECTION
-    override val RIGHT_BACK_DIRECTION: DcMotorSimple.Direction
-        get() = _RIGHT_BACK_DIRECTION
-    override val LEFT_FRONT_NAME: String
-        get() = _LEFT_FRONT_NAME
-    override val LEFT_BACK_NAME: String
-        get() = _LEFT_BACK_NAME
-    override val RIGHT_FRONT_NAME: String
-        get() = _RIGHT_FRONT_NAME
-    override val RIGHT_BACK_NAME: String
-        get() = _RIGHT_BACK_NAME
+    override val LEFT_FRONT_MOTOR: MotorEx
+        get() = _LEFT_FRONT_MOTOR
+    override val LEFT_BACK_MOTOR: MotorEx
+        get() = _LEFT_BACK_MOTOR
+    override val RIGHT_FRONT_MOTOR: MotorEx
+        get() = _RIGHT_FRONT_MOTOR
+    override val RIGHT_BACK_MOTOR: MotorEx
+        get() = _RIGHT_BACK_MOTOR
     override val RIGHT_DRIFT_MULTIPLIER: Double
         get() = _RIGHT_DRIFT_MODIFIER
     override val POV: DriverControlled.POV
