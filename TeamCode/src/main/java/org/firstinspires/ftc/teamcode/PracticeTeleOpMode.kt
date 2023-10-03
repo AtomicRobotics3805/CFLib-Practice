@@ -36,5 +36,5 @@ class PracticeTeleOpMode : TeleOpMode(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ),
-    subsystems = arrayOf(PracticeLift)
+    subsystems = arrayOf(PracticeClaw)
 )
