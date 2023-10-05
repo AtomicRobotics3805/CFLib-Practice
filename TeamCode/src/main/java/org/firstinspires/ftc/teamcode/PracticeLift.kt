@@ -61,29 +61,17 @@ object PracticeLift : Subsystem {
     )
 
     val start: Command
-        get() = parallel {
-            +PowerMotor(liftMotor, SPEED)
-        }
+        get() = PowerMotor(liftMotor, SPEED)
     val reverse: Command
-        get() = parallel {
-            +PowerMotor(liftMotor, -SPEED)
-        }
+        get() = PowerMotor(liftMotor, -SPEED)
     val stop: Command
-        get() =  parallel {
-            +PowerMotor(liftMotor, 0.0)
-        }
+        get() = PowerMotor(liftMotor, 0.0)
     val toBottom: Command
-        get() = parallel {
-            +MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
-        }
+        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
     val toLow: Command
-        get() = parallel {
-            +MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
-        }
+        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
     val toHigh: Command
-        get() = parallel {
-            +MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
-        }
+        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
 
     override fun initialize() {
         liftMotor.initialize()
