@@ -43,17 +43,18 @@ import kotlin.math.PI
 object PracticeLift : Subsystem {
 
     var NAME = "lift"
-    var SPEED = 0.5
+    var SPEED = 1.0
     var DIRECTION = DcMotorSimple.Direction.FORWARD
     val liftMotor: MotorEx = MotorEx(NAME,MotorEx.MotorType.ANDYMARK_NEVEREST, 3.7, DIRECTION)
-    var HIGH_POSITION = 30.0
+    var HIGH_POSITION = 35.0
     var LOW_POSITION = 15.0
     private const val PULLY_WIDTH = 0.7
-    private const val COUNTS_PER_REV = 28 * 3.7
+    private const val COUNTS_PER_REV = 28 * 40
     private const val DRIVE_GEAR_REDUCTION = 1.0
     private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLY_WIDTH * PI)
     val start: Command
         get() = PowerMotor(liftMotor, SPEED)
+
     val reverse: Command
         get() = PowerMotor(liftMotor, -SPEED)
     val stop: Command
