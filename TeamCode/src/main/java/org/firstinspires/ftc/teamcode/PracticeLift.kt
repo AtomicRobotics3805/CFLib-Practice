@@ -56,24 +56,25 @@ object PracticeLift : Subsystem {
     var BOTTOM_POSITION = (0.5 * COUNTS_PER_INCH).toInt()
 
     val start: Command
-        get() = StopAtBottom(liftMotor, SPEED)
+        get() = StopAtBottom(liftMotor, SPEED, requirements = listOf(this))
 
     val reverse: Command
-        get() = StopAtBottom(liftMotor, -SPEED)
+
+        get() = StopAtBottom(liftMotor, -SPEED, requirements = listOf(this))
 
     val stop: Command
-        get() = PowerMotor(liftMotor, 0.0)
+        get() = PowerMotor(liftMotor, 0.0, requirements = listOf(this))
     override fun initialize() {
         liftMotor.initialize()
         liftMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         liftMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
     }
     val toBottom: Command
-        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
+        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(this))
     val toLow: Command
-        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(this))
     val toHigh: Command
-        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(this))
     class StopAtBottom(
         private val motor: MotorEx,
         private val power: Double,
