@@ -31,10 +31,18 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    mainRoutine = { TelemetryCommand(100.0, "Woohoo!")},
+    mainRoutine = { TelemetryCommand(100.0, "A = switch speed\n" +
+            "x = claw open\n" +
+            "y = claw close\n" +
+            "b = lift to bottom\n" +
+            "RT = lift up\n" +
+            "LT = lift down\n" +
+            "dpad up = lift to high\n" +
+            "dpad down = lift to low")},
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ),
-    subsystems = arrayOf(PracticeClaw)
+    subsystems = arrayOf(PracticeClaw, PracticeLift)
+
 )

@@ -41,6 +41,13 @@ object PracticeControls : Controls() {
         gamepad1.a.pressedCommand = { drive.switchSpeed() }
         gamepad1.x.pressedCommand = { PracticeClaw.open }
         gamepad1.y.pressedCommand = { PracticeClaw.close }
+        gamepad1.rightTrigger.pressedCommand = { PracticeLift.start }
+        gamepad1.rightTrigger.releasedCommand = { PracticeLift.stop }
+        gamepad1.leftTrigger.pressedCommand = { PracticeLift.reverse }
+        gamepad1.leftTrigger.releasedCommand = { PracticeLift.stop }
+        gamepad1.dpadUp.pressedCommand = { PracticeLift.toHigh}
+        gamepad1.dpadDown.pressedCommand = { PracticeLift.toLow}
+        gamepad1.b.pressedCommand = { PracticeLift.toBottom}
 
     }
 }

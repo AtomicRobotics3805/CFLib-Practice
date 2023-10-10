@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.hardware.Servo
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.Constants.opMode
+import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.subsystems.MoveServo
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 
@@ -38,16 +39,16 @@ object PracticeClaw : Subsystem {
     var OPEN_POSITION = 0.8
     var CLOSE_POSITION = 0.42
     var TIME = 1.0
-    lateinit var clawServo: Servo
+    val clawServo = ServoEx("claw")
 
     // commands
     val open: Command
         get() = MoveServo(clawServo, OPEN_POSITION, TIME)
     val close: Command
-        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
+        get() = MoveServo(clawServo, CLOSE_POSITION, TIME)
 
     override fun initialize() {
-        clawServo = opMode.hardwareMap.get(Servo::class.java, NAME)
+        clawServo.initialize()
     }
 
 }
