@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
+import com.qualcomm.robotcore.util.RobotLog
 import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.MotorEx
@@ -42,21 +43,24 @@ import kotlin.math.PI
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object PracticeLift : Subsystem {
 
+    private const val PULLY_WIDTH = 0.7
+    private const val COUNTS_PER_REV = 28 * 40
+    private const val DRIVE_GEAR_REDUCTION = 1.0
+    private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLY_WIDTH * PI)
     var NAME = "lift"
     var SPEED = 1.0
     var DIRECTION = DcMotorSimple.Direction.FORWARD
     val liftMotor: MotorEx = MotorEx(NAME,MotorEx.MotorType.ANDYMARK_NEVEREST, 3.7, DIRECTION)
     var HIGH_POSITION = 35.0
     var LOW_POSITION = 15.0
-    private const val PULLY_WIDTH = 0.7
-    private const val COUNTS_PER_REV = 28 * 40
-    private const val DRIVE_GEAR_REDUCTION = 1.0
-    private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLY_WIDTH * PI)
+    var BOTTOM_POSITION = (0.5 * COUNTS_PER_INCH).toInt()
+
     val start: Command
-        get() = PowerMotor(liftMotor, SPEED)
+        get() = StopAtBottom(liftMotor, SPEED)
 
     val reverse: Command
-        get() = PowerMotor(liftMotor, -SPEED)
+        get() = StopAtBottom(liftMotor, -SPEED)
+
     val stop: Command
         get() = PowerMotor(liftMotor, 0.0)
     override fun initialize() {
@@ -70,4 +74,28 @@ object PracticeLift : Subsystem {
         get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
     val toHigh: Command
         get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+    class StopAtBottom(
+        private val motor: MotorEx,
+        private val power: Double,
+        private val mode: DcMotor.RunMode? = null,
+        override val requirements: List<Subsystem> = arrayListOf(),
+        override val interruptible: Boolean = true,
+        private val logData: Boolean = false
+    ) : Command() {
+        override val _isDone: Boolean
+            get() = motor.currentPosition < BOTTOM_POSITION
+        override fun start() {
+            if (mode != null) {
+                motor.mode = mode
+            }
+            motor.power = power
+            if(logData) {
+                RobotLog.i("PowerMotor", power)
+            }
+        }
+
+        override fun end(interrupted: Boolean) {
+            motor.power = 0.0
+        }
+    }
 }
