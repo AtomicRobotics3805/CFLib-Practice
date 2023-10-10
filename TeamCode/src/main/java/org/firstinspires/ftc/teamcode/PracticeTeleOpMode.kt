@@ -32,13 +32,13 @@ class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
     mainRoutine = { TelemetryCommand(100.0, "A = switch speed\n" +
-            "x = claw open\n" +
-            "y = claw close\n" +
-            "b = lift to bottom\n" +
-            "RT = lift up\n" +
-            "LT = lift down\n" +
-            "dpad up = lift to high\n" +
-            "dpad down = lift to low")},
+            "X = claw open\n" +
+            "Y = claw close\n" +
+            "B = lift to bottom\n" +
+            "LT = lift up\n" +
+            "RT = lift down\n" +
+            "Dpad up = lift to high\n" +
+            "Dpad down = lift to low")},
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)

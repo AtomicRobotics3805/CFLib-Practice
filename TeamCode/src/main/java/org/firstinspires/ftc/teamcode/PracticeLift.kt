@@ -21,15 +21,23 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
+import com.qualcomm.robotcore.util.ElapsedTime
+import com.qualcomm.robotcore.util.Range
 import com.qualcomm.robotcore.util.RobotLog
 import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.hardware.MotorExGroup
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.math.roundToInt
+import kotlin.math.sign
 
 /**
  * This class is an example of a lift controlled by a single motor. Unlike the Intake example object, it can use
@@ -56,7 +64,7 @@ object PracticeLift : Subsystem {
     var BOTTOM_POSITION = (0.5 * COUNTS_PER_INCH).toInt()
 
     val start: Command
-        get() = StopAtBottom(liftMotor, SPEED, requirements = listOf(this))
+        get() = PowerMotor(liftMotor, SPEED, requirements = listOf(this))
 
     val reverse: Command
 
