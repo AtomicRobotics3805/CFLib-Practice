@@ -18,26 +18,18 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.DcMotor
-import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
-import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
-import com.qualcomm.robotcore.util.ElapsedTime
-import com.qualcomm.robotcore.util.Range
 import com.qualcomm.robotcore.util.RobotLog
-import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.hardware.MotorEx
-import org.atomicrobotics3805.cflib.hardware.MotorExGroup
+import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.min
-import kotlin.math.roundToInt
-import kotlin.math.sign
 
 /**
  * This class is an example of a lift controlled by a single motor. Unlike the Intake example object, it can use
@@ -64,26 +56,26 @@ object PracticeLift : Subsystem {
     var BOTTOM_POSITION = (0.5 * COUNTS_PER_INCH).toInt()
 
     val start: Command
-        get() = PowerMotor(liftMotor, SPEED, requirements = listOf(this))
+        get() = StopAtBottomAndTop(liftMotor, SPEED, requirements = listOf(PracticeLift), mode = DcMotor.RunMode.RUN_USING_ENCODER)
 
     val reverse: Command
-
-        get() = StopAtBottom(liftMotor, -SPEED, requirements = listOf(this))
+        get() = StopAtBottomAndTop(liftMotor, -SPEED, requirements = listOf(PracticeLift), mode = DcMotor.RunMode.RUN_USING_ENCODER)
 
     val stop: Command
-        get() = PowerMotor(liftMotor, 0.0, requirements = listOf(this))
+        get() = PowerMotor(liftMotor, 0.0, requirements = listOf(PracticeLift), mode = DcMotor.RunMode.RUN_USING_ENCODER)
     override fun initialize() {
         liftMotor.initialize()
         liftMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         liftMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
     }
     val toBottom: Command
-        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(this))
+        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(PracticeLift))
+
     val toLow: Command
-        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(this))
+        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(PracticeLift))
     val toHigh: Command
-        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(this))
-    class StopAtBottom(
+        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(PracticeLift))
+    class StopAtBottomAndTop(
         private val motor: MotorEx,
         private val power: Double,
         private val mode: DcMotor.RunMode? = null,
@@ -91,20 +83,27 @@ object PracticeLift : Subsystem {
         override val interruptible: Boolean = true,
         private val logData: Boolean = false
     ) : Command() {
+
         override val _isDone: Boolean
-            get() = motor.currentPosition < BOTTOM_POSITION
+            get() = (motor.currentPosition <= BOTTOM_POSITION && power <= 0) ||
+                    (motor.currentPosition >= HIGH_POSITION * COUNTS_PER_INCH && power >= 0)
+
         override fun start() {
-            if (mode != null) {
-                motor.mode = mode
-            }
-            motor.power = power
-            if(logData) {
-                RobotLog.i("PowerMotor", power)
+            if (!_isDone) {
+                if (mode != null) {
+                    motor.mode = mode
+                }
+                motor.power = power
+                if (logData) {
+                    RobotLog.i("PowerMotor", power)
+                }
             }
         }
 
         override fun end(interrupted: Boolean) {
-            motor.power = 0.0
+            if (motor.power == power) {
+                motor.power = 0.0
+            }
         }
     }
 }

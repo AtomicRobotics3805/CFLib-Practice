@@ -23,6 +23,8 @@ import org.atomicrobotics3805.cflib.GamepadEx
 import org.atomicrobotics3805.cflib.controls.Controls
 
 /**
+ * 192.168.43.1:5555
+ *
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a
  * line into registerCommands with the following format:
  * gamepad.button.command = { Subsystem.command }
@@ -41,10 +43,10 @@ object PracticeControls : Controls() {
         gamepad1.a.pressedCommand = { drive.switchSpeed() }
         gamepad1.x.pressedCommand = { PracticeClaw.open }
         gamepad1.y.pressedCommand = { PracticeClaw.close }
-        gamepad1.leftTrigger.pressedCommand = { PracticeLift.start }
-        gamepad1.leftTrigger.releasedCommand = { PracticeLift.stop }
-        gamepad1.rightTrigger.pressedCommand = { PracticeLift.reverse }
-        gamepad1.rightTrigger.releasedCommand = { PracticeLift.stop }
+        gamepad1.leftBumper.pressedCommand = { PracticeLift.start }
+        gamepad1.leftBumper.releasedCommand = { PracticeLift.stop }
+        gamepad1.rightBumper.pressedCommand = { PracticeLift.reverse }
+        gamepad1.rightBumper.releasedCommand = { PracticeLift.stop }
         gamepad1.dpadUp.pressedCommand = { PracticeLift.toHigh}
         gamepad1.dpadDown.pressedCommand = { PracticeLift.toLow}
         gamepad1.b.pressedCommand = { PracticeLift.toBottom}

@@ -27,18 +27,22 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  * This class is an example of how you can create an TeleOp OpMode. Everything is handled by the
  * TeleOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
-@TeleOp(name = "Practice TeleOp OpMode")
-class PracticeTeleOpMode : TeleOpMode(
+@TeleOp(name = "Torin's TeleOp OpMode")
+class TorinTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    mainRoutine = { TelemetryCommand(100.0, "A = switch speed\n" +
-            "X = claw open\n" +
-            "Y = claw close\n" +
-            "B = lift to bottom\n" +
-            "LT = lift up\n" +
-            "RT = lift down\n" +
-            "Dpad up = lift to high\n" +
-            "Dpad down = lift to low")},
+    mainRoutine = { TelemetryCommand(Double.POSITIVE_INFINITY) {
+        "A = switch speed\n" +
+                "X = claw open\n" +
+                "Y = claw close\n" +
+                "B = Lift to bottom\n" +
+                "LT = Lift up\n" +
+                "RT = Lift down\n" +
+                "Dpad up = Lift to high\n" +
+                "Dpad down = Lift to low\n" +
+                "Lift position: " + PracticeLift.liftMotor.currentPosition.toString()
+    }
+    },
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
