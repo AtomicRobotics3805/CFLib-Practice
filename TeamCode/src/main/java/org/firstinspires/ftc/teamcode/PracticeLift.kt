@@ -18,17 +18,16 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.DcMotor
+import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
-import com.qualcomm.robotcore.util.RobotLog
+import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.Command
-import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.hardware.MotorEx
+import org.atomicrobotics3805.cflib.hardware.MotorExGroup
 import org.atomicrobotics3805.cflib.parallel
-import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
-import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.PI
 
 /**
@@ -43,67 +42,37 @@ import kotlin.math.PI
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object PracticeLift : Subsystem {
 
-    private const val PULLY_WIDTH = 0.7
-    private const val COUNTS_PER_REV = 28 * 40
-    private const val DRIVE_GEAR_REDUCTION = 1.0
-    private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLY_WIDTH * PI)
-    var NAME = "lift"
+    var NAME_1 = "lift1"
     var SPEED = 1.0
-    var DIRECTION = DcMotorSimple.Direction.FORWARD
-    val liftMotor: MotorEx = MotorEx(NAME,MotorEx.MotorType.ANDYMARK_NEVEREST, 3.7, DIRECTION)
-    var HIGH_POSITION = 35.0
+    var DIRECTION_1 = DcMotorSimple.Direction.FORWARD
+    var HIGH_POSITION = 30.0
     var LOW_POSITION = 15.0
-    var BOTTOM_POSITION = (0.5 * COUNTS_PER_INCH).toInt()
+
+    private const val PULLEY_WIDTH = 0.7
+    private const val COUNTS_PER_REV = 28 * 3.7
+    private const val DRIVE_GEAR_REDUCTION = 1.0
+    private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLEY_WIDTH * PI)
+
+    val liftMotor: MotorEx = MotorExGroup(
+        MotorEx(NAME_1, MotorEx.MotorType.ANDYMARK_NEVEREST, 3.7, DIRECTION_1)
+    )
 
     val start: Command
-        get() = StopAtBottomAndTop(liftMotor, SPEED, requirements = listOf(PracticeLift), mode = DcMotor.RunMode.RUN_USING_ENCODER)
-
+        get() = PowerMotor(liftMotor, SPEED, mode = DcMotor.RunMode.RUN_USING_ENCODER)
     val reverse: Command
-        get() = StopAtBottomAndTop(liftMotor, -SPEED, requirements = listOf(PracticeLift), mode = DcMotor.RunMode.RUN_USING_ENCODER)
-
+        get() = PowerMotor(liftMotor, -SPEED, mode = DcMotor.RunMode.RUN_USING_ENCODER)
     val stop: Command
-        get() = PowerMotor(liftMotor, 0.0, requirements = listOf(PracticeLift), mode = DcMotor.RunMode.RUN_USING_ENCODER)
+        get() = PowerMotor(liftMotor, 0.0, mode = DcMotor.RunMode.RUN_USING_ENCODER)
+    val toBottom: Command
+        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
+    val toLow: Command
+        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+    val toHigh: Command
+        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED)
+
     override fun initialize() {
         liftMotor.initialize()
         liftMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         liftMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
-    }
-    val toBottom: Command
-        get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(PracticeLift))
-
-    val toLow: Command
-        get() = MotorToPosition(liftMotor, (LOW_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(PracticeLift))
-    val toHigh: Command
-        get() = MotorToPosition(liftMotor, (HIGH_POSITION * COUNTS_PER_INCH).toInt(), SPEED, requirements = listOf(PracticeLift))
-    class StopAtBottomAndTop(
-        private val motor: MotorEx,
-        private val power: Double,
-        private val mode: DcMotor.RunMode? = null,
-        override val requirements: List<Subsystem> = arrayListOf(),
-        override val interruptible: Boolean = true,
-        private val logData: Boolean = false
-    ) : Command() {
-
-        override val _isDone: Boolean
-            get() = (motor.currentPosition <= BOTTOM_POSITION && power <= 0) ||
-                    (motor.currentPosition >= HIGH_POSITION * COUNTS_PER_INCH && power >= 0)
-
-        override fun start() {
-            if (!_isDone) {
-                if (mode != null) {
-                    motor.mode = mode
-                }
-                motor.power = power
-                if (logData) {
-                    RobotLog.i("PowerMotor", power)
-                }
-            }
-        }
-
-        override fun end(interrupted: Boolean) {
-            if (motor.power == power) {
-                motor.power = 0.0
-            }
-        }
     }
 }
