@@ -61,11 +61,11 @@ object PracticeLift : Subsystem {
     )
 
     val start: Command
-        get() = PowerMotor(liftMotor, SPEED)
+        get() = PowerMotor(liftMotor, SPEED, mode = DcMotor.RunMode.RUN_USING_ENCODER)
     val reverse: Command
-        get() = PowerMotor(liftMotor, -SPEED)
+        get() = PowerMotor(liftMotor, -SPEED, mode = DcMotor.RunMode.RUN_USING_ENCODER)
     val stop: Command
-        get() = PowerMotor(liftMotor, 0.0)
+        get() = PowerMotor(liftMotor, 0.0, mode = DcMotor.RunMode.RUN_USING_ENCODER)
     val toBottom: Command
         get() = MotorToPosition(liftMotor, (0.5 * COUNTS_PER_INCH).toInt(), SPEED)
     val toLow: Command
