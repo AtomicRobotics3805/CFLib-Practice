@@ -20,6 +20,7 @@ import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
+import com.qualcomm.robotcore.util.RobotLog
 import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.MotorEx
@@ -42,9 +43,9 @@ import kotlin.math.PI
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object PracticeLift : Subsystem {
 
-    var NAME_1 = "lift1"
+    var NAME = "lift"
     var SPEED = 1.0
-    var DIRECTION_1 = DcMotorSimple.Direction.FORWARD
+    var DIRECTION = DcMotorSimple.Direction.FORWARD
     var HIGH_POSITION = 30.0
     var LOW_POSITION = 15.0
 
@@ -53,9 +54,7 @@ object PracticeLift : Subsystem {
     private const val DRIVE_GEAR_REDUCTION = 1.0
     private const val COUNTS_PER_INCH = COUNTS_PER_REV * DRIVE_GEAR_REDUCTION / (PULLEY_WIDTH * PI)
 
-    val liftMotor: MotorEx = MotorExGroup(
-        MotorEx(NAME_1, MotorEx.MotorType.ANDYMARK_NEVEREST, 3.7, DIRECTION_1)
-    )
+    val liftMotor: MotorEx = MotorEx(NAME, MotorEx.MotorType.ANDYMARK_NEVEREST, 3.7, DIRECTION)
 
     val start: Command
         get() = PowerMotor(liftMotor, SPEED, mode = DcMotor.RunMode.RUN_USING_ENCODER)
@@ -74,5 +73,25 @@ object PracticeLift : Subsystem {
         liftMotor.initialize()
         liftMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         liftMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+    }
+    class StopAtBottomAndTop(
+        private val motor: MotorEx,
+        private val power: Double,
+        private val mode: DcMotor.RunMode? = null,
+        override val requirements: List<Subsystem> = arrayListOf(),
+        override val interruptible: Boolean = true,
+        private val logData: Boolean = false,
+        private val positionToStopAt: Int
+    ) : Command() {
+
+        override fun start() {
+            if (mode != null) {
+                motor.mode = mode
+            }
+            motor.power = power
+            if(logData) {
+                RobotLog.i("PowerMotor", power)
+            }
+        }
     }
 }

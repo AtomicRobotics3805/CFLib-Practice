@@ -31,17 +31,11 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 class TorinTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    mainRoutine = { TelemetryCommand(Double.POSITIVE_INFINITY) {
-        "A = switch speed\n" +
-                "X = claw open\n" +
-                "Y = claw close\n" +
-                "B = Lift to bottom\n" +
-                "LT = Lift up\n" +
-                "RT = Lift down\n" +
-                "Dpad up = Lift to high\n" +
-                "Dpad down = Lift to low\n" +
-                "Lift position: " + PracticeLift.liftMotor.currentPosition.toString()
-    }
+    mainRoutine = {
+        TelemetryCommand(Double.POSITIVE_INFINITY) {
+            "HELLO"
+        }
+
     },
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
