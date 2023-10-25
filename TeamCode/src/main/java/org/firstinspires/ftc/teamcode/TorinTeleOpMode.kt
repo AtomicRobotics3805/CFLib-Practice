@@ -33,7 +33,14 @@ class TorinTeleOpMode : TeleOpMode(
     Constants.Color.UNKNOWN,
     mainRoutine = {
         TelemetryCommand(Double.POSITIVE_INFINITY) {
-            "HELLO"
+            "a = switchSpeed \n" +
+                    "x = PracticeClaw.open\n" +
+                    "y = PracticeClaw.close\n" +
+                    "dpadUp = PracticeLift.start\n" +
+                    "dpadDown = PracticeLift.reverse\n" +
+                    "b = PracticeLift.toBottom\n" +
+                    "leftBumper = PracticeLift.toLow\n" +
+                    "rightBumper = PracticeLift.toHigh"
         }
 
     },
